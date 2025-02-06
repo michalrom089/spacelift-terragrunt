@@ -4,7 +4,7 @@ variable "env" {
   default = "default"
 }
 
-output "hello_output" {
+output "env_output" {
   value = var.env
 }
 
