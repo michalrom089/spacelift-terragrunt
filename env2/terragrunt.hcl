@@ -1,5 +1,10 @@
+locals {
+  repo_root = get_repo_root()
+  repo_path = get_path_from_repo_root()
+}
+
 terraform {
-	source = "../shared"
+	source = "${local.repo_root}/shared"
 }
 
 dependency "env1" {
@@ -11,7 +16,11 @@ dependency "env1" {
     }
 }
 
+
 inputs = {
 	env = "This is env2"
 	path = "${get_path_from_repo_root()}"
+	repo_root = "${local.repo_root}"
 }
+
+
