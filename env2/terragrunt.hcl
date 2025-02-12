@@ -23,6 +23,3 @@ inputs = {
 	repo_root = "${local.repo_root}"
 }
 
-
-
-
