@@ -1,30 +1,40 @@
-variable "env" {
-  description = "The env"
-  type        = string
-  default = "default"
+terraform {
+  required_providers {
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.6"
+    }
+  }
 }
 
-output "env_output" {
-  value = var.env
+# Always-changing trigger using terraform_data
+# This will force replacement on every apply because the trigger value is always different
+resource "terraform_data" "trigger" {
+  input = timestamp()
 }
 
-variable "path" {
-  description = "The path"
-  type        = string
-  default = "default"
+# Random ID that changes on every apply due to trigger
+resource "random_id" "output" {
+  byte_length = 8
+
+  keepers = {
+    # Using the id of terraform_data which changes on every apply
+    trigger = terraform_data.trigger.id
+  }
 }
 
-output "path_output" {
-  value = var.path
+# Output the random ID
+output "random_id" {
+  value       = random_id.output.hex
+  description = "Random ID that changes on every apply"
 }
 
-variable "repo_root" {
-  description = "repo_root"
-  type        = string
-  default = "default"
+output "random_id_b64" {
+  value       = random_id.output.b64_url
+  description = "Random ID in base64 URL-safe encoding"
 }
 
-output "repo_root_output" {
-  value = var.repo_root
+output "timestamp" {
+  value       = terraform_data.trigger.output
+  description = "Timestamp when this configuration was applied"
 }
-

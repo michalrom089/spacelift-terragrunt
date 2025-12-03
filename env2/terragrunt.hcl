@@ -11,17 +11,14 @@ dependency "env1" {
 	config_path = "../env1"
 
     mock_outputs = {
-        path_output = "mock-env1-output"
-        env_output = "mock-env1-output"
+        random_id = "mock-random-id"
+        random_id_b64 = "mock-random-id-b64"
+        timestamp = "mock-timestamp"
     }
 }
 
 
-inputs = {
-	env = "This is env2"
-	path = "${get_path_from_repo_root()}"
-	repo_root = "${local.repo_root}"
-}
+inputs = {}
 
 
 
