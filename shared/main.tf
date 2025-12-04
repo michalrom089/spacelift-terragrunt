@@ -7,15 +7,13 @@ terraform {
   }
 }
 
-# Always-changing trigger using terraform_data
-# This will force replacement on every apply because the trigger value is always different
 resource "terraform_data" "trigger" {
   input = timestamp()
 }
 
 # Random ID that changes on every apply due to trigger
 resource "random_id" "output" {
-  byte_length = 8
+  byte_length = 7
 
   keepers = {
     # Using the id of terraform_data which changes on every apply
