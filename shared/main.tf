@@ -13,7 +13,7 @@ resource "terraform_data" "trigger" {
 
 # Random ID that changes on every apply due to trigger
 resource "random_id" "output" {
-  byte_length = 7
+  byte_length = 6
 
   keepers = {
     # Using the id of terraform_data which changes on every apply
